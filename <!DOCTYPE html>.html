@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrity Carbon Emissions Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #carbonCount {
+            font-size: 36px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Celebrity Carbon Emissions Counter</h1>
+        <p>Carbon emissions produced by the celebrity:</p>
+        <p id="carbonCount"></p>
+    </div>
+
+    <script>
+        // Calculate carbon emissions count
+        function calculateCarbonEmissions() {
+            // Constants
+            const annualEmissions = 8300; // in tonnes
+            const millisecondsInYear = 1000 * 60 * 60 * 24 * 365;
+
+            // Current date
+            const currentDate = new Date();
+
+            // Start date of the year
+            const startDateOfYear = new Date(currentDate.getFullYear(), 0, 1);
+
+            // End date of the year
+            const endDateOfYear = new Date(currentDate.getFullYear() + 1, 0, 1);
+
+            // Calculate elapsed time in milliseconds
+            const elapsedTime = currentDate - startDateOfYear;
+
+            // Calculate the percentage of the year elapsed
+            const percentageOfYearElapsed = elapsedTime / millisecondsInYear;
+
+            // Calculate emissions count
+            const emissionsCount = Math.floor(annualEmissions * percentageOfYearElapsed);
+
+            // Display emissions count
+            document.getElementById('carbonCount').innerText = `${emissionsCount.toLocaleString()} tonnes`;
+        }
+
+        // Call the function initially to calculate and display carbon emissions count
+        calculateCarbonEmissions();
+
+        // Update the emissions count every second
+        setInterval(calculateCarbonEmissions, 1000);
+    </script>
+</body>
+</html>
