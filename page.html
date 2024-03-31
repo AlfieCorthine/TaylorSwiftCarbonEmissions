@@ -22,6 +22,10 @@
             font-weight: bold;
             color: #27ae60;
         }
+        #currentTime {
+            font-size: 18px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -29,6 +33,7 @@
         <h1>Taylor Swift Carbon Emissions Counter</h1>
         <p>Carbon emissions produced by Taylor Swift in 2024:</p>
         <p id="carbonCount"></p>
+        <p id="currentTime"></p>
     </div>
 
     <script>
@@ -58,12 +63,16 @@
 
             // Display emissions count
             document.getElementById('carbonCount').innerText = `${emissionsCount.toLocaleString()} tonnes`;
+
+            // Display current time
+            const currentTime = currentDate.toLocaleTimeString();
+            document.getElementById('currentTime').innerText = `Current Time: ${currentTime}`;
         }
 
         // Call the function initially to calculate and display carbon emissions count
         calculateCarbonEmissions();
 
-        // Update the emissions count every second
+        // Update the emissions count and current time every second
         setInterval(calculateCarbonEmissions, 1000);
     </script>
 </body>
