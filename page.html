@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taylor Swift Carbon Emissions Counter</title>
+    <title>Celebrity Carbon Emissions Counter</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@
             color: #27ae60;
         }
         #currentTime {
-            font-size: 18px;
+            font-size: 20px; /* Increased font size */
             color: #555;
         }
         #accuracy {
@@ -32,11 +32,11 @@
             color: #888;
         }
         #kgPerHour {
-            font-size: 20px; /* Increased font size */
+            font-size: 22px; /* Decreased font size */
             color: #333;
         }
         #tonnesPerHour {
-            font-size: 14px;
+            font-size: 16px;
             color: #555;
         }
         #totalTonnes {
@@ -55,9 +55,25 @@
             animation: flyPlane 10s linear infinite;
             width: 200px; /* Adjust plane size */
         }
+        .pollution {
+            position: absolute;
+            top: 100px; /* Adjust position */
+            left: -50px; /* Initial position off-screen */
+            width: 20px; /* Adjust pollution size */
+            height: 20px; /* Adjust pollution size */
+            background-color: #888; /* Color of pollution */
+            border-radius: 50%;
+            opacity: 0.5; /* Adjust opacity */
+            animation: flyPollution 10s linear infinite;
+        }
         @keyframes flyPlane {
             from { transform: translateX(-200px); }
             to { transform: translateX(calc(100vw + 200px)); }
+        }
+        @keyframes flyPollution {
+            0% { transform: translateX(-50px) translateY(0); }
+            50% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(-50px) translateY(0); }
         }
     </style>
 </head>
@@ -66,11 +82,11 @@
         <h1>Taylor Swift Carbon Emissions Counter</h1>
         <p>Carbon emissions produced by Taylor Swift in 2024:</p>
         <p id="carbonCount"></p>
-        <p id="currentTime"></p>
         <p id="accuracy">Accurate to GMT</p>
         <p id="kgPerHour"></p>
         <p id="tonnesPerHour"></p>
         <p id="totalTonnes"></p>
+        <p id="currentTime"></p>
     </div>
 
     <script>
@@ -135,10 +151,11 @@
 
     <!-- Made by information -->
     <div id="madeBy">
-        Made by AlfieCorthine on GitHub
+        Made by @AlfieCorthine on Github
     </div>
 
     <!-- Plane animation -->
     <img src="plane.png" alt="Plane" class="plane">
+    <div class="pollution"></div>
 </body>
 </html>
