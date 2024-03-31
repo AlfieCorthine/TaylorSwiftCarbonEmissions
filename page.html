@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            overflow: hidden; /* Hide horizontal scrollbar */
         }
         .container {
             margin-top: 100px;
@@ -46,6 +47,17 @@
             font-size: 12px;
             color: #888;
             margin-top: 50px; /* Added margin */
+        }
+        .plane {
+            position: absolute;
+            top: 50px;
+            left: -200px; /* Initial position off-screen */
+            animation: flyPlane 10s linear infinite;
+            width: 200px; /* Adjust plane size */
+        }
+        @keyframes flyPlane {
+            from { transform: translateX(-200px); }
+            to { transform: translateX(calc(100vw + 200px)); }
         }
     </style>
 </head>
@@ -125,5 +137,8 @@
     <div id="madeBy">
         Made by JohanLiebert-II on GitHub | AKA Alfie Corthine
     </div>
+
+    <!-- Plane animation -->
+    <img src="plane.png" alt="Plane" class="plane">
 </body>
 </html>
