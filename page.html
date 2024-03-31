@@ -18,13 +18,34 @@
             margin-bottom: 20px;
         }
         #carbonCount {
-            font-size: 36px;
+            font-size: 48px; /* Increased font size */
             font-weight: bold;
             color: #27ae60;
         }
         #currentTime {
             font-size: 18px;
             color: #555;
+        }
+        #accuracy {
+            font-size: 14px;
+            color: #888;
+        }
+        #kgPerHour {
+            font-size: 20px; /* Increased font size */
+            color: #333;
+        }
+        #tonnesPerHour {
+            font-size: 14px;
+            color: #555;
+        }
+        #totalTonnes {
+            font-size: 14px;
+            color: #555;
+        }
+        #madeBy {
+            font-size: 12px;
+            color: #888;
+            margin-top: 50px; /* Added margin */
         }
     </style>
 </head>
@@ -34,23 +55,31 @@
         <p>Carbon emissions produced by Taylor Swift in 2024:</p>
         <p id="carbonCount"></p>
         <p id="currentTime"></p>
+        <p id="accuracy">Accurate to GMT</p>
+        <p id="kgPerHour"></p>
+        <p id="tonnesPerHour"></p>
+        <p id="totalTonnes"></p>
     </div>
 
     <script>
         // Calculate carbon emissions count
         function calculateCarbonEmissions() {
             // Constants
-            const annualEmissions = 8300; // in tonnes
+            const annualEmissionsTonnes = 8300; // in tonnes
+            const tonnesToKg = 1000; // conversion factor from tonnes to kilograms
+            const annualEmissionsKg = annualEmissionsTonnes * tonnesToKg;
+            const hoursInYear = 24 * 365;
+
             const millisecondsInYear = 1000 * 60 * 60 * 24 * 365;
 
             // Current date
             const currentDate = new Date();
 
             // Start date of the year
-            const startDateOfYear = new Date(currentDate.getFullYear(), 0, 1);
+            const startDateOfYear = new Date(currentDate.getUTCFullYear(), 0, 1);
 
             // End date of the year
-            const endDateOfYear = new Date(currentDate.getFullYear() + 1, 0, 1);
+            const endDateOfYear = new Date(currentDate.getUTCFullYear() + 1, 0, 1);
 
             // Calculate elapsed time in milliseconds
             const elapsedTime = currentDate - startDateOfYear;
@@ -58,22 +87,43 @@
             // Calculate the percentage of the year elapsed
             const percentageOfYearElapsed = elapsedTime / millisecondsInYear;
 
-            // Calculate emissions count
-            const emissionsCount = Math.floor(annualEmissions * percentageOfYearElapsed);
+            // Calculate emissions count in kilograms
+            const emissionsCountKg = Math.floor(annualEmissionsKg * percentageOfYearElapsed);
 
-            // Display emissions count
-            document.getElementById('carbonCount').innerText = `${emissionsCount.toLocaleString()} tonnes`;
+            // Calculate emissions count in tonnes
+            const emissionsCountTonnes = emissionsCountKg / tonnesToKg;
+
+            // Calculate kilograms per hour
+            const kgPerHour = Math.floor(emissionsCountKg / (elapsedTime / (1000 * 60 * 60)));
+
+            // Display emissions count in kilograms
+            document.getElementById('carbonCount').innerText = `${emissionsCountKg.toLocaleString()} kilograms`;
 
             // Display current time
             const currentTime = currentDate.toLocaleTimeString();
             document.getElementById('currentTime').innerText = `Current Time: ${currentTime}`;
+
+            // Display kilograms per hour
+            document.getElementById('kgPerHour').innerText = `Kilograms per Hour: ${kgPerHour.toLocaleString()}`;
+
+            // Display tonnes per hour
+            const tonnesPerHour = kgPerHour / tonnesToKg;
+            document.getElementById('tonnesPerHour').innerText = `Tonnes per Hour: ${tonnesPerHour.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+
+            // Display total tonnes so far
+            document.getElementById('totalTonnes').innerText = `Total Tonnes So Far: ${emissionsCountTonnes.toLocaleString(undefined, { maximumFractionDigits: 2 })} tonnes`;
         }
 
         // Call the function initially to calculate and display carbon emissions count
         calculateCarbonEmissions();
 
-        // Update the emissions count and current time every second
+        // Update the emissions count, current time, kilograms per hour, tonnes per hour, and total tonnes every second
         setInterval(calculateCarbonEmissions, 1000);
     </script>
+
+    <!-- Made by information -->
+    <div id="madeBy">
+        Made by JohanLiebert-II on GitHub | AKA Alfie Corthine
+    </div>
 </body>
 </html>
